@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+if [ -z "$1" -o -z "$2" -o ! -z "$3" ]; then
+	echo "`basename $0` - Wikipedia daily-traffic page statistics in the last month"
+	echo
+	echo "usage: `basename $0` <Language> <Page>"
+	echo "example: `basename $0` es 'Teorema de Pick'"
+	exit 1
+fi
+
+# setting language
+LANG="$1"
+
+# setting page
+PAGE=`echo "$2" | tr ' ' '_'`
+
+# setting date
+YEAR=`date +%Y`
+MONTH=`date +%m`
+let MONTH=$MONTH-1
+MONTH=`echo $MONTH | sed -e "s/^\([0-9]\)$/0\1/"`
+
+# service
+URL="http://stats.grok.se/$LANG/$YEAR$MONTH/$PAGE"
+TMP="/tmp/`basename $0`.tmp"
+
+# downloading data
+curl "$URL" -o "$TMP" &> /dev/null
+if [ "$?" != "0" ]; then
+	echo "error: please, try it latter"
+	exit 2
+fi
+
+# calculating the result
+MONTHLY_TRAFFIC=`cat "$TMP" | grep 'has been viewed' | sed -e "s/^.* has been viewed \([0-9]*\) times in.*$/\1/"`
+let DAILY_TRAFFIC=$MONTHLY_TRAFFIC/30
+echo $DAILY_TRAFFIC
+
+# cleaning up
+rm "$TMP"
