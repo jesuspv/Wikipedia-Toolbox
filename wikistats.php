@@ -33,7 +33,7 @@ function renderwikicite($input, $params, &$parser) {
         $prog = './extensions/Wikipedia-Toolbox/wikistats';
         $traffic = exec($prog.' "'.$lang.'" "'.$page.'"');
 	$url  = '<a href="http://'.$lang.'.wikipedia.org/wiki/'.$page.'">'.$page.'</a>';
-        return $url.' (<i>'.$traffic.' daily views</i>)';
+        return $url.' (<i>'.$traffic.' daily readers</i>)';
 }
 
 //</source>
