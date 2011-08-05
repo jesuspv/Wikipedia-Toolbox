@@ -1,1 +1,8 @@
-Wikipedia tools, in particular, a simple script for page traffic statistics
+ Wikipedia Toolbox
+===================
+
+My toolbox contains the following:
+
+- wikistats: a bash script that returns the average daily-traffic of a Wikipedia page during the last month.
+
+- wikistats.php: a MediaWiki extension 'wikistats' that provides a proxy for wikistats script and an extension 'wikicite' that provides a helper for Wikipedia citations including the daily-traffic statistics. They are conceived to be installed in the 'extensions/Wikipedia-Toolbox' directory of you MediaWiki site. Please, note that you should also add the corresponding 'include/require_once' directives in your 'LocalSettings.php' file.

@@ -17,7 +17,7 @@ PAGE=`echo "$2" | tr ' ' '_'`
 # setting date
 YEAR=`date +%Y`
 MONTH=`date +%m`
-let MONTH=$MONTH-1
+let MONTH=10#$MONTH-1
 MONTH=`echo $MONTH | sed -e "s/^\([0-9]\)$/0\1/"`
 
 # service
