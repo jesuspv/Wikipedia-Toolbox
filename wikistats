@@ -18,6 +18,10 @@ PAGE=`echo "$2" | tr ' ' '_'`
 YEAR=`date +%Y`
 MONTH=`date +%m`
 let MONTH=10#$MONTH-1
+if [ $MONTH == 0 ]; then
+   let YEAR=$YEAR-1
+   MONTH=12
+fi
 MONTH=`echo $MONTH | sed -e "s/^\([0-9]\)$/0\1/"`
 
 # service
@@ -32,7 +36,7 @@ if [ "$?" != "0" ]; then
 fi
 
 # calculating the result
-MONTHLY_TRAFFIC=`cat "$TMP" | grep 'has been viewed' | sed -e "s/^.* has been viewed \([0-9]*\) times in.*$/\1/"`
+MONTHLY_TRAFFIC=`cat "$TMP" | grep 'has been viewed' | sed "s/.* has been viewed \([0-9]*\).*/\1/"`
 if [ "$MONTHLY_TRAFFIC" != "" ]; then
 	let DAILY_TRAFFIC=$MONTHLY_TRAFFIC/30
 	echo $DAILY_TRAFFIC
